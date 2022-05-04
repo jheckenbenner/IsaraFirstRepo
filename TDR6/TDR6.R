@@ -89,6 +89,32 @@ IMC <- FIMC(poi, tai/100)
 t3var$IMC <- IMC
 head(t3var)
 
+##### Même exercice avec dplyr 
+
+### Exercice iris1
+
+iris1 <- read.table("data/DesIris.txt", header=TRUE, dec=".", sep=" ")
+library(dplyr)
+
+head(iris1)
+filter(iris1, Species=="virginica")
+filter(iris1, SepalLength > 7)
+filter(iris1, SepalLength < 6 & Species=="virginica")
+
+# Sélection dans un vecteur
+iris1$SepalLength[iris1$Species=="virginica"] #Sélection des longueurs de sépales pour les plantes de l'espèce Virginica
+iris1[iris1$Species=="virginica", ]$SepalLength
+
+# Calculs sur des sous-ensembles
+apply(iris1[,1:4], MARGIN=2, mean) # Calcul de la moyenne de toutes les lignes de chacune des 4 premières colonnes  
+tapply(iris1$SepalLength, iris1$Species, mean) # Moyenne de la taille des sépales pour chacune des espèces 
+
+
+
+
+### Exercice t3var
+
+
 
 
 
