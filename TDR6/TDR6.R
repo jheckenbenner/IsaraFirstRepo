@@ -105,10 +105,6 @@ filter(iris1, SepalLength < 6 & Species=="virginica")
 iris1$SepalLength[iris1$Species=="virginica"] #Sélection des longueurs de sépales pour les plantes de l'espèce Virginica
 iris1[iris1$Species=="virginica", ]$SepalLength
 
-# Calculs sur des sous-ensembles
-apply(iris1[,1:4], MARGIN=2, mean) # Calcul de la moyenne de toutes les lignes de chacune des 4 premières colonnes  
-tapply(iris1$SepalLength, iris1$Species, mean) # Moyenne de la taille des sépales pour chacune des espèces 
-
 
 
 
