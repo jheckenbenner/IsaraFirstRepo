@@ -48,10 +48,10 @@ t3var[c(1,10,20), ]
 # Sélectionner les femmes de plus de 170 cm. Combien sont-elles ?
 fem170 <- t3var[t3var$tai > 170 &  t3var$sexe=="f", ] 
 fem170
-nrow(fem170) #Nb de femmes de plus de 170 cm
+nrow(fem170) # Nb de femmes de plus de 170 cm
 
-# 
-t3var[10:20, -1]#Variables sauf première pour les individus 1 à 20
+# Variables pour les individus 1 à 20 (sauf la première)
+t3var[10:20, -1]
 
 
 tai <- t3var$tai
@@ -59,20 +59,36 @@ sexe <- t3var$sexe
 taifmoy <- mean(tai[sexe=="f"])#Taille moyenne des femmes 
 taifmoy
 
-fsupmoy <- t3var[tai>taifmoy & sexe=="f", ]#Sélection des femmes de taille supérieure à la moyenne
+# Sélection des femmes de taille supérieure à la moyenne
+fsupmoy <- t3var[tai>taifmoy & sexe=="f", ]
 fsupmoy
-nrow(fsupmoy) #Effectif du groupe (12)
+nrow(fsupmoy) # Effectif de femme dont la taille est sup. à la moyenne : 12
 
+# Moyenne des poids pour tous
 poi <- t3var$poi
-mean(poi)#Moyenne des poids pour tous
+mean(poi)
 
-#Moyenne des poids par sexe
+# Moyenne des poids par sexe
 mean(poi[sexe=="f"])
 mean(poi[sexe=="h"])
 
-var(poi)#Variance des poids pour tous
-#Variance par sexe 
+# Variance des poids pour tous
+var(poi)
+
+# Variance par sexe 
 var(poi[sexe=="f"])
 var(poi[sexe=="h"])
+
+# Fonction qui calcule l’indice de masse corporelle 
+
+FIMC <- function(poi,tai) {return(poi/(tai^2))}
+IMC <- FIMC(poi, tai/100)
+
+# Création d'une nouvelle variable
+
+t3var$IMC <- IMC
+head(t3var)
+
+
 
 
