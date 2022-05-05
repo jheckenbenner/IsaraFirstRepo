@@ -106,6 +106,12 @@ iris1$SepalLength[iris1$Species=="virginica"] #Sélection des longueurs de sépa
 iris1[iris1$Species=="virginica", ]$SepalLength
 
 
+sepales_virginica <- filter(iris1, Species=="virginica")
+select(iris1, SepalLength, Species)
+
+#Sélectionner les lignes bleues et ne garder que les colonnes Score et Gain
+casino_bleu <- filter(casino, Couleur_voiture=="bleu")
+select(casino, Score, Gain)
 
 
 ### Exercice t3var
