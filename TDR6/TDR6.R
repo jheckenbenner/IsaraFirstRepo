@@ -109,14 +109,53 @@ iris1[iris1$Species=="virginica", ]$SepalLength
 sepales_virginica <- filter(iris1, Species=="virginica")
 select(iris1, SepalLength, Species)
 
-#Sélectionner les lignes bleues et ne garder que les colonnes Score et Gain
-casino_bleu <- filter(casino, Couleur_voiture=="bleu")
-select(casino, Score, Gain)
-
 
 ### Exercice t3var
 
 
+t3var <- read.table("data/t3var.txt", header = TRUE, sep = "\t") #Import des données dans l'objet t3var
+t3var #Affichage de l'ensemble des données 
 
+head(t3var)
+names(t3var) #On identifie le nom des variables : "sexe", "poi", "tai" 
+
+
+# Sélectionner les individus 1, 10 et 20.
+slice(t3var, 1, 10, 20)
+
+
+# Sélectionner les femmes de plus de 170 cm. Combien sont-elles ?
+fem170 <- t3var[t3var$tai > 170 &  t3var$sexe=="f", ] 
+fem170
+nrow(fem170) # Nb de femmes de plus de 170 cm
+
+# Variables pour les individus 1 à 20 (sauf la première)
+t3var[10:20, -1]
+
+
+tai <- t3var$tai
+sexe <- t3var$sexe
+taifmoy <- mean(tai[sexe=="f"])#Taille moyenne des femmes 
+taifmoy
+
+# Sélection des femmes de taille supérieure à la moyenne
+fsupmoy <- t3var[tai>taifmoy & sexe=="f", ]
+fsupmoy
+nrow(fsupmoy) # Effectif de femme dont la taille est sup. à la moyenne : 12
+
+# Moyenne des poids pour tous
+poi <- t3var$poi
+mean(poi)
+
+# Moyenne des poids par sexe
+mean(poi[sexe=="f"])
+mean(poi[sexe=="h"])
+
+# Variance des poids pour tous
+var(poi)
+
+# Variance par sexe 
+var(poi[sexe=="f"])
+var(poi[sexe=="h"])
 
 
