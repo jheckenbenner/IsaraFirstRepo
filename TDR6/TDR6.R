@@ -125,7 +125,8 @@ slice(t3var, 1, 10, 20)
 
 
 # Sélectionner les femmes de plus de 170 cm. Combien sont-elles ?
-fem170 <- t3var[t3var$tai > 170 &  t3var$sexe=="f", ] 
+
+filter(t3var, sexe=="f" & tai > 170)
 fem170
 nrow(fem170) # Nb de femmes de plus de 170 cm
 
