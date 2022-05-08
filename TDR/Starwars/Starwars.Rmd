@@ -1,0 +1,100 @@
+---
+title: "Jeu de données - Personnages Starwars"
+author: "JH"
+date: '2022-05-07'
+output:
+  pdf_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+```
+
+# **Introduction** 
+
+Dans ce rapport nous pourrons observer les différentes caractéristiques des personnages de Starwars.
+
+
+# **Présentation des données**
+
+```{r import, echo=FALSE, eval=TRUE}
+library(dplyr)
+```
+
+```{r data, echo = T,eval=T}
+head(starwars)
+names(starwars)
+dim(starwars)
+ncol(starwars)
+nrow(starwars)
+```
+
+Le jeu de données comprend les caractéristiques de `r nrow(starwars)` personnages. Ces caractéristiques sont décrites par `r ncol(starwars)` variables. 
+
+# **Sélection de données **
+
+Tout d'abord, nous allons sélectionner les individus 5, 25, 45, 65 et 85 dans le tableau de données.
+```{r selec, echo=TRUE, eval=TRUE}
+starwars %>% 
+  slice(5, 25, 45, 65, 85)
+```
+
+Le but est ensuite d'identifier l'ensemble des personnages féminins vivants sur la planète Tatooine. 
+```{r Tatooine, echo=TRUE, eval=TRUE}
+starwars %>%
+  filter(sex=="female") %>%
+  filter(homeworld=="Tatooine")
+```
+
+On sélectionne ensuite les femmes de plus de 2 mètres dans le but des les identifier. Comment s'appellent-elles ? 
+```{r femsup2, echo=TRUE, eval=TRUE}
+starwars %>%
+  filter(sex=="female") %>%
+  filter(height>200)
+```
+Il y a seulement un personnage féminin qui mesure plus de deux mètres, elle s'appelle Taun We.
+
+
+Grâce à la commande suivante, on peut sélectionner les variables textuelles dans notre tableau de données.  
+```{r caractere, echo=TRUE, eval=TRUE}
+starwars %>%
+  select(where(is.character))
+```
+Ainsi, on peut identifier 8 variables textuelles. 
+
+On a pu remarquer que les tailles des personnages étaient données en cm. Pour mettre en forme nos données, il peut être intéressant de créer une nouvelle colonne à partir d'une variable existente avec les tailles en mètres. C'est ce que nous allons faire avec les commandes suivantes : 
+```{r taille, echo=TRUE, eval=TRUE}
+starwars %>%
+  mutate(height_meters = height/100) %>%
+  select(name, height, height_meters) %>%
+  arrange(height_meters)
+```
+
+
+
+
+# **Utilisation de ggplot2 **
+
+Le package ggplot2 permet de concevoir des graphiques plus attractifs et plus complexes. C'est une extension de *tidyverse*.
+
+## **Barplot **
+
+Il est possible de réaliser différents types de graphiques. On peut notamment réaliser des barplots comme ci-dessous : 
+
+```{r tidyverse, echo=FALSE, eval=TRUE}
+library(tidyverse)
+```
+
+
+```{r grap, echo = T,eval=T,fig.height = 6, fig.width = 8, fig.align = "center"}
+ggplot(data=starwars) +
+  geom_bar(mapping = aes (x = sex, fill = sex)) +
+  ggtitle("Répartition des sexes chez les différents personnages de Starwars")
+```
+
+Cet exemple de graphique montre la répartition des sexes chez les personnages de Starwars. 
+
+
+
+
+
